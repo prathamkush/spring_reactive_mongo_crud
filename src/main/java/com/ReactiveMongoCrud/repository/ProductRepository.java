@@ -13,6 +13,8 @@ public interface ProductRepository extends ReactiveMongoRepository<Product, Stri
 
     Flux<ProductDto> findByPriceBetween(Range<Double> priceRange);
 
+    Flux<ProductDto> findByQtyBetween(Range<Integer> qtyRange);
+
 
 
 }

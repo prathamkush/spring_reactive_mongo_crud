@@ -28,10 +28,16 @@ public class ProductController {
         return service.getProduct(id);
     }
 
-    // GET PRODUCT IN RANGE
+    // GET PRODUCT IN RANGE PRICE
     @RequestMapping(value = "/product-in-range", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<ProductDto> getProductInRange(@RequestParam("min") double min, @RequestParam("max") double max){
         return service.getProductsInPriceRange(min,max);
+    }
+
+    // GET PRODUCT IN RANGE QTY
+    @RequestMapping(value = "/product-in-range-qty", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<ProductDto> getProductInRangeQty(@RequestParam("min") int min, @RequestParam("max") int max){
+        return service.getProductsInQtyRange(min,max);
     }
 
     // SAVE A PRODUCT

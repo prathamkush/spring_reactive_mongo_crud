@@ -36,6 +36,15 @@ public class ProductService {
 
     }
 
+    // GET PRODUCTS IN QTY RANGE
+    public Flux<ProductDto> getProductsInQtyRange(int min, int max){
+
+        return repository.findByQtyBetween(Range.closed(min,max));
+
+    }
+
+
+
 
     // SAVE PRODUCT
     public Mono<ProductDto> saveProduct(Mono<ProductDto> productDtoMono){
