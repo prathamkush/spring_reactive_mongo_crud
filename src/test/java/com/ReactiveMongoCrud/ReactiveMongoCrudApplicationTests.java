@@ -42,7 +42,7 @@ class ReactiveMongoCrudApplicationTests {
     @Test
     public void saveProductTest(){
 
-        ProductDto productDto = new ProductDto("102", "Laptop", 1, 100000);
+        ProductDto productDto = new ProductDto("102", "Laptop", "PC & Accessories", 1, 100000);
         // request body
         Mono<ProductDto> productDtoMono = Mono.just(productDto);
 
@@ -64,8 +64,8 @@ class ReactiveMongoCrudApplicationTests {
     @Test
     public void getProductsTests(){
         List<ProductDto> productDtoList = new ArrayList<>();
-        productDtoList.add( new ProductDto("102", "Laptop", 1, 100000));
-        productDtoList.add( new ProductDto("103", "Battery", 4, 1000));
+        productDtoList.add( new ProductDto("102", "Laptop","PC & Accessories" ,1, 100000));
+        productDtoList.add( new ProductDto("103", "Battery", "PC & Accessories", 4, 1000));
 
         Flux<ProductDto> productDtoFlux = Flux.just(productDtoList.get(0), productDtoList.get(1));
 
@@ -86,8 +86,9 @@ class ReactiveMongoCrudApplicationTests {
     @Test
     public void getProductsTests1(){
         List<ProductDto> productDtoList = new ArrayList<>();
-        productDtoList.add( new ProductDto("102", "Laptop", 1, 100000));
-        productDtoList.add( new ProductDto("103", "Battery", 4, 1000));
+        productDtoList.add( new ProductDto("102", "Laptop","PC & Accessories" ,1, 100000));
+        productDtoList.add( new ProductDto("103", "Battery", "PC & Accessories", 4, 1000));
+
 
         Flux<ProductDto> productDtoFlux = Flux.just(productDtoList.get(0), productDtoList.get(1));
 
@@ -110,7 +111,7 @@ class ReactiveMongoCrudApplicationTests {
 
     @Test
     public void getProductByIdTest(){
-        ProductDto productDto = new ProductDto("102", "Laptop", 1, 100000);
+        ProductDto productDto = new ProductDto("102", "Laptop", "PC & Accessories", 1, 100000);
         Mono<ProductDto> productDtoMono = Mono.just(productDto);
 
         when(service.getProduct(any())).thenReturn(productDtoMono);
@@ -130,7 +131,7 @@ class ReactiveMongoCrudApplicationTests {
     }
     @Test
     public void getProductByIdTest1(){
-        ProductDto productDto = new ProductDto("102", "Laptop", 1, 100000);
+        ProductDto productDto = new ProductDto("102", "Laptop", "PC & Accessories", 1, 100000);
         Mono<ProductDto> productDtoMono = Mono.just(productDto);
 
         when(service.getProduct(any())).thenReturn(productDtoMono);
@@ -150,7 +151,7 @@ class ReactiveMongoCrudApplicationTests {
     @Test
     public void updateProductTest(){
 
-        ProductDto productDto = new ProductDto("102", "Laptop", 1, 100000);
+        ProductDto productDto = new ProductDto("102", "Laptop", "PC & Accessories", 1, 100000);
         Mono<ProductDto> productDtoMono = Mono.just(productDto);
 
         when(service.updateProduct(productDtoMono,"102")).thenReturn(productDtoMono);

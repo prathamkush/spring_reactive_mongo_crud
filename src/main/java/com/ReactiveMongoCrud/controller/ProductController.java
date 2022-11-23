@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
+@CrossOrigin("http://localhost:3000")
 public class ProductController {
 
     @Autowired
@@ -28,15 +31,35 @@ public class ProductController {
         return service.getProduct(id);
     }
 
+
+    // GET PRODUCT BY NAME
+    @RequestMapping(value = "/getProductByName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<ProductDto> getProductByName(@PathVariable("name") String name)
+    {
+        return service.getProductByName(name);
+    }
+
+
+    // GET PRODUCT BY CATEGORY (LIKE)
+    @RequestMapping(value = "/getProductByCategory/{category}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<ProductDto> getProductByCategory(@PathVariable("category") String category) {
+        return service.getProductByCategory(category);
+    }
+
+
+
+
+
+
     // GET PRODUCT IN RANGE PRICE
-    @RequestMapping(value = "/product-in-range", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flux<ProductDto> getProductInRange(@RequestParam("min") double min, @RequestParam("max") double max){
+    @RequestMapping(value = "/product-in-range/{min}/{max}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<ProductDto> getProductInRange(@PathVariable("min") double min,@PathVariable("max") double max){
         return service.getProductsInPriceRange(min,max);
     }
 
     // GET PRODUCT IN RANGE QTY
-    @RequestMapping(value = "/product-in-range-qty", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flux<ProductDto> getProductInRangeQty(@RequestParam("min") int min, @RequestParam("max") int max){
+    @RequestMapping(value = "/product-in-range-qty/{min}/{max}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<ProductDto> getProductInRangeQty(@PathVariable("min") int min,@PathVariable("max") int max){
         return service.getProductsInQtyRange(min,max);
     }
 
@@ -44,6 +67,13 @@ public class ProductController {
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ProductDto> saveProduct(@RequestBody Mono<ProductDto> productDtoMono){
         return service.saveProduct(productDtoMono);
+    }
+
+    // SAVE ALL PRODUCTS
+    @RequestMapping(value = "/saveAll", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<ProductDto> saveAllProduct(@RequestBody Flux<ProductDto> productDto)
+    {
+        return service.saveAll(productDto);
     }
 
 
